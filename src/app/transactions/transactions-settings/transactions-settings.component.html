@@ -1,0 +1,114 @@
+<h1 mat-dialog-title>List Settings</h1>
+
+<div mat-dialog-content>
+
+    <div id="display-options">
+        <div id="row-id-field"
+             class="field">
+            <mat-checkbox [checked]="state.displayRowId"
+                          labelPosition="before"
+                          (change)="toggleRowIdColumn($event.checked)">
+                Display Row ID
+            </mat-checkbox>
+        </div>
+
+        <div id="list-length-field"
+             class="field">
+            <mat-checkbox [checked]="state.displayListLength"
+                          labelPosition="before"
+                          (change)="toggleListLengthCounter($event.checked)">
+                Display List Length
+            </mat-checkbox>
+        </div>
+    </div>
+
+    <h3 class="field-header">Receiver</h3>
+    <mat-form-field id="transactions-field"
+                    class="field"
+                    appearance="fill">
+        <input #receiverInput
+               matInput
+               [readonly]="!editReceiver"
+               [style.cursor]="editReceiver ? 'initial' : 'unset'"
+               [ngModel]="state.receiver">
+        <button *ngIf="!editReceiver; else saveOrCancelButtons"
+                mat-button
+                matSuffix
+                mat-icon-button
+                aria-label="Edit"
+                (click)="editReceiver = true">
+            Edit
+        </button>
+        <ng-template #saveOrCancelButtons>
+            <button *ngIf="receiverInput.value !== state.receiver"
+                    mat-button
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Save"
+                    (click)="setReceiver(receiverInput.value)">
+                Save
+            </button>
+        </ng-template>
+    </mat-form-field>
+
+
+
+    <div id="order-by-field"
+         class="field">
+        <form #orderByForm="ngForm">
+            <h3 class="field-header">Order by</h3>
+            <div ngModelGroup="orderBy">
+                <mat-form-field appearance="fill">
+                    <mat-label>Field</mat-label>
+                    <mat-select id="order-by-field-input"
+                                #fieldInput
+                                [ngModel]="state.orderBy.field"
+                                (selectionChange)="setOrderBy(orderByForm.value.orderBy)"
+                                name="field">
+                        <mat-option *ngFor="let option of orderByOptions.field"
+                                    [value]="option.value">
+                            {{option.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Direction</mat-label>
+                    <mat-select id="order-by-direction-input"
+                                #directionInput
+                                [ngModel]="state.orderBy.direction"
+                                (selectionChange)="setOrderBy(orderByForm.value.orderBy)"
+                                name="direction">
+                        <mat-option *ngFor="let option of orderByOptions.direction"
+                                    [value]="option.value">
+                            {{option.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+
+    <h3 class="field-header">Rows</h3>
+    <mat-form-field id="list-size-field"
+                    class="field"
+                    appearance="fill">
+        <input #rowsToDisplayInput
+               matInput
+               [value]="state.rowsToDisplay">
+        <button *ngIf="+rowsToDisplayInput.value !== +state.rowsToDisplay"
+                mat-button
+                matSuffix
+                mat-icon-button
+                aria-label="Save"
+                (click)="setRowsToDisplay(+rowsToDisplayInput.value)">
+            Save
+        </button>
+    </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions>
+    <button id="close-button"
+            mat-button
+            (click)="close()">OK</button>
+</div>

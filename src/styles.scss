@@ -1,0 +1,132 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-spinner {
+    margin: 16px auto;
+
+    circle {
+        stroke: rgb(83, 95, 114);
+    }
+}
+
+.cdk-overlay-container {
+
+    .error-dialog-pane {
+        position: absolute !important;
+        bottom: 0;
+        max-width: unset !important;
+        width: 100%;
+
+        .mat-dialog-container {
+            padding: 0;
+            overflow: unset !important;
+        }
+    }
+
+    #TransactionsSettingsComponent {
+        .mat-dialog-actions {
+            justify-content: center;
+
+            button {
+                background: coral;
+                color: white;
+            }
+        }
+
+        .mat-form-field.mat-focused .mat-form-field-label {
+            color: coral;
+        }
+
+        .mat-form-field.mat-focused .mat-form-field-ripple {
+            background-color: coral;
+        }
+
+        .mat-option {
+            &.mat-selected {
+                color: coral;
+            }
+        }
+    }
+}
+
+#row-id-column-header, .row-id-column {
+    .mat-figure {
+        width: 100px;
+
+        @media only screen and (min-width: 768px) {
+            width: 130px;
+        }
+
+        max-width: 100%;
+        margin: auto !important;
+
+        div {
+            display: block;
+            width: 100%;
+        }
+    }
+}
+
+mat-grid-list {
+    .column {
+        .mat-figure {
+            align-items: flex-start;
+        }
+    }
+}
+
+#date-column-header, .date-column {
+    .mat-figure {
+        width: 100px;
+
+        @media only screen and (min-width: 768px) {
+            width: 130px;
+        }
+
+        max-width: 100%;
+        margin: auto !important;
+
+        div {
+            display: block;
+            width: 100%;
+        }
+    }
+}
+
+#amount-column-header, .amount-column {
+    .mat-figure {
+        width: 250px;
+        max-width: 100%;
+        margin: auto !important;
+
+        div {
+            display: block;
+            width: 100%;
+        }
+    }
+}
+
+#sender-column-header, .sender-column {
+    .mat-figure {
+        width: 100px;
+        max-width: 100%;
+        margin: auto !important;
+
+        div {
+            display: block;
+            width: 100%;
+        }
+    }
+}
+
+.font-09em {
+    font-size: 0.9em;
+}

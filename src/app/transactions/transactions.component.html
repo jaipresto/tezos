@@ -1,0 +1,101 @@
+<mat-toolbar color="light">
+    <span id="image-container">
+        <img src="../../assets/logo.png"
+             alt="Tezos logo">
+    </span>
+    <span id="title">Transactions</span>
+    <span id="toolbar-spacer"></span>
+    <button id="settings-button"
+            mat-icon-button
+            aria-label="Refresh list"
+            (click)="openSettings()">
+        <mat-icon>
+            settings
+        </mat-icon>
+    </button>
+</mat-toolbar>
+
+
+<div id="content">
+    <div id="list">
+        <span *ngIf="displayListLength"
+              id="list-length-note">
+            ({{listLength}} items)
+        </span>
+        <button *ngIf="displayRefreshButton"
+                id="refresh-button"
+                mat-icon-button
+                aria-label="Refresh list"
+                (click)="checkForTransactions()">
+            <mat-icon>
+                refresh
+            </mat-icon>
+        </button>
+        <mat-grid-list id="column-headers"
+                       [rowHeight]="itemSize + 10 + 'px'"
+                       [cols]="gridCols">
+            <mat-grid-tile *ngIf="displayRowId"
+                           id="row-id-column-header">
+                <div>
+                    <h4>Row ID</h4>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile id="date-column-header">
+                <div>
+                    <h4>Date</h4>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile id="amount-column-header">
+                <div>
+                    <h4>Amount XTZ <span class="dollars-note">(USD)</span></h4>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile id="sender-column-header">
+                <div>
+                    <h4>Sender</h4>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <cdk-virtual-scroll-viewport id="viewport"
+                                     #viewport
+                                     [hidden]="hideViewport"
+                                     [ngStyle]="{'height': listSizePixels}"
+                                     [itemSize]="itemSize"
+                                     [minBufferPx]="itemSize"
+                                     [maxBufferPx]="itemSize * maxBufferItems">
+            <ng-container *ngIf="loadingTop">
+                <div *ngTemplateOutlet="loading"></div>
+            </ng-container>
+            <mat-grid-list *cdkVirtualFor="let item of transactions; let i = index; trackBy: trackByRowId"
+                           class="item"
+                           [ngClass]="{'highlighted-item': highlighted === item.rowId}"
+                           [ngClass]="{'font-09em': displayRowId}"
+                           [rowHeight]="itemSize + 'px'"
+                           [cols]="gridCols">
+                <mat-grid-tile *ngIf="displayRowId"
+                               class="row-id-column column">
+                    <div> {{item.rowId}} </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="date-column column">
+                    <div> {{item.dateFormatted}} </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="amount-column column">
+                    <div> {{item.xtz}} <span class="dollars-note">{{item.dollars}} USD</span> </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="sender-column column">
+                    <div> {{item.senderAddressFormatted}} </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <ng-container *ngIf="loadingBottom">
+                <div *ngTemplateOutlet="loading"></div>
+            </ng-container>
+            <div id="pseudo-item-bottom"></div>
+        </cdk-virtual-scroll-viewport>
+
+    </div>
+</div>
+
+<ng-template #loading>
+    <mat-spinner [diameter]="25"></mat-spinner>
+</ng-template>

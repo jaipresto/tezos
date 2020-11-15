@@ -1,0 +1,95 @@
+mat-toolbar {
+    background: transparent;
+
+    #image-container {
+        width: 150px;
+        height: 48px;
+    }
+
+    #title {
+        padding-top: 16px;
+        padding-left: 16px;
+        font-weight: 300;
+        color: black;
+    }
+
+    #toolbar-spacer {
+        flex: 1 1 auto;
+    }
+
+    #settings-button {
+        color: black;
+    }
+}
+
+#content {
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
+
+    #list {
+        margin: 6% 0;
+        height: fit-content;
+        position: relative;
+        width: 95%;
+        border: 1px solid lightgrey;
+
+        @media only screen and (min-width: 768px) {
+            width: 75%;
+        }
+
+        #viewport {
+            .item {
+
+                @media only screen and (min-width: 768px) {
+                    font-size: unset;
+                }
+
+                &.highlighted-item {
+                    background-color: rgb(44 125 247 / 5%);
+                }
+            }
+        }
+    }
+
+    #list-length-note {
+        position: absolute;
+        z-index: 100;
+        right: 4px;
+        color: darkgrey;
+        bottom: -32px;
+    }
+
+    #refresh-button {
+        float: right;
+        z-index: 100;
+        padding: 0 8px;
+    }
+
+    #column-headers {
+        margin-bottom: 8px;
+        padding: 0px 16px;
+        background: #f4f5f6;
+
+        .mat-grid-tile {
+            padding-top: 16px;
+
+            h4 {
+                color: grey;
+            }
+        }
+    }
+
+
+}
+
+.dollars-note {
+    display: block;
+    color: grey;
+
+    @media only screen and (min-width: 768px) {
+        display: inline-block;
+    }
+}
+
+
